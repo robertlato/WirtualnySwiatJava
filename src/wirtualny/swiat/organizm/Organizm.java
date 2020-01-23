@@ -2,11 +2,15 @@ package wirtualny.swiat.organizm;
 
 import wirtualny.swiat.WirtualnySwiat;
 
+import java.awt.*;
+
 abstract public class Organizm implements Comparable<Organizm>
 {
     abstract public void akcja();
 
     abstract public void kolizja(int nowyX, int nowyY);
+
+    abstract public Color getColor();
 
     @Override
     public int compareTo(Organizm drugi)
@@ -35,6 +39,7 @@ abstract public class Organizm implements Comparable<Organizm>
 
     // VARIABLES
     protected char znak;
+    protected Color kolor;
     protected int wiek = 0;
     protected int sila = 0;
     protected int inicjatywa = 0;

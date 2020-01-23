@@ -1,14 +1,28 @@
 package wirtualny.swiat;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class App {
 
     public static void main(String[] args)
     {
-        new MyFrame();
-        WirtualnySwiat pierwszySwiat = new WirtualnySwiat(20, 20);
+        try {
+            // Set cross-platform Java L&F (also called "Metal")
+            UIManager.setLookAndFeel(
+                    UIManager.getCrossPlatformLookAndFeelClassName());
+        }
+        catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            // handle exception
+        }
+
+
+        MyFrame Frame = new MyFrame();
+        WirtualnySwiat pierwszySwiat = new WirtualnySwiat(20, 20, Frame);
+        //pierwszySwiat.wykonajTureBtn(Frame);
         pierwszySwiat.rysujSwiat();
+//        pierwszySwiat.wykonajTure();
+//        pierwszySwiat.rysujSwiat();
         char operacja = 0;
         Scanner scanner = new Scanner(System.in);
 //        rysujMenu();

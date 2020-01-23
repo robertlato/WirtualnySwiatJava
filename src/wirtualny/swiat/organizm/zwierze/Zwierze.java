@@ -1,7 +1,9 @@
 package wirtualny.swiat.organizm.zwierze;
 
+import wirtualny.swiat.WirtualnySwiat;
 import wirtualny.swiat.organizm.Organizm;
 
+import javax.swing.*;
 import java.util.Random;
 
 abstract public class Zwierze extends Organizm
@@ -42,6 +44,7 @@ abstract public class Zwierze extends Organizm
 
     }
 
+    @Override
     public void kolizja(int nowyX, int nowyY)
     {
         Organizm przeciwnik = aktualnySwiat.getOrganizm(nowyX, nowyY);
@@ -84,12 +87,18 @@ abstract public class Zwierze extends Organizm
             //ATAKUJACY WYGRYWA
             else if (sila >= przeciwnik.getSila())
             {
-                System.out.print(getNazwa() + " [" + polozenieX + "]["
+//                System.out.print(getNazwa() + " [" + polozenieX + "]["
+//                        + polozenieY + "] wygrywa pojedynek z "
+//                        + przeciwnik.getNazwa()
+//                        + " [" + przeciwnik.getPolozenieX()
+//                        + "][" + przeciwnik.getPolozenieY()
+//                        +"]. Pole wygranego to: [" + nowyX + "][" + nowyY + "]\n");
+                aktualnySwiat.panelRaportow.add(new JLabel(getNazwa() + " [" + polozenieX + "]["
                         + polozenieY + "] wygrywa pojedynek z "
                         + przeciwnik.getNazwa()
                         + " [" + przeciwnik.getPolozenieX()
                         + "][" + przeciwnik.getPolozenieY()
-                        +"]. Pole wygranego to: [" + nowyX + "][" + nowyY + "]\n");
+                        +"]. Pole wygranego to: [" + nowyX + "][" + nowyY + "]\n"));
 
                 aktualnySwiat.setOrganizm(polozenieX, polozenieY, nowyX, nowyY);
                 polozenieX = nowyX;
@@ -99,16 +108,28 @@ abstract public class Zwierze extends Organizm
             // ATAKUJACY PRZEGRYWA
         else
             {
-                System.out.print( getNazwa() + " [" + polozenieX + "]["
+//                System.out.print( getNazwa() + " [" + polozenieX + "]["
+//                        + polozenieY + "] przegrywa pojedynek z "
+//                        + przeciwnik.getNazwa()
+//                        + " [" + przeciwnik.getPolozenieX() + "]["
+//                        + przeciwnik.getPolozenieY() + "],  i zwalnia swoje pole. ");
+//
+//                aktualnySwiat.usunOrganizm(polozenieX, polozenieY);
+//
+//                System.out.print("Pole wygranego to: [" + przeciwnik.getPolozenieX() + "]["
+//                        + przeciwnik.getPolozenieY() + "]\n");
+                aktualnySwiat.panelRaportow.add(new JLabel(getNazwa() + " [" + polozenieX + "]["
                         + polozenieY + "] przegrywa pojedynek z "
                         + przeciwnik.getNazwa()
                         + " [" + przeciwnik.getPolozenieX() + "]["
-                        + przeciwnik.getPolozenieY() + "],  i zwalnia swoje pole. ");
+                        + przeciwnik.getPolozenieY() + "],  i zwalnia swoje pole. " +
+                        "Pole wygranego to: [" + przeciwnik.getPolozenieX() + "]["
+                        + przeciwnik.getPolozenieY() + "]\n"));
+
+//                System.out.print("Pole wygranego to: [" + przeciwnik.getPolozenieX() + "]["
+//                        + przeciwnik.getPolozenieY() + "]\n");
 
                 aktualnySwiat.usunOrganizm(polozenieX, polozenieY);
-
-                System.out.print("Pole wygranego to: [" + przeciwnik.getPolozenieX() + "]["
-                        + przeciwnik.getPolozenieY() + "]\n");
             }
         }
 

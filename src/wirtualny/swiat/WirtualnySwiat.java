@@ -4,7 +4,12 @@ import wirtualny.swiat.organizm.Organizm;
 import wirtualny.swiat.organizm.roslina.*;
 import wirtualny.swiat.organizm.zwierze.*;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
+import java.util.List;
 
 public class WirtualnySwiat {
     // zmien na private!
@@ -12,14 +17,22 @@ public class WirtualnySwiat {
     private List<Organizm> kolejnoscOrganizmow = new ArrayList<Organizm>();
     private List<Organizm> organizmyDoUsuniecia = new ArrayList<Organizm>();
     private int rozmiar;
-    int iloscOrganizmow;
     private int tura;
+    private JPanel panelGlowny;
+    public JPanel panelRaportow;
+    private MyFrame worldFrame;
 
-    public WirtualnySwiat(int rozmiar, int iloscOrganizmow) {
+    public WirtualnySwiat(int rozmiar, int iloscOrganizmow, MyFrame myFrame)
+    {
         this.rozmiar = rozmiar;
-        this.iloscOrganizmow = iloscOrganizmow;
-
         organizmy = new Organizm[rozmiar][rozmiar];
+        panelGlowny = new JPanel();
+//        panelGlowny.setLayout(new BoxLayout(panelGlowny, BoxLayout.Y_AXIS));
+        worldFrame = myFrame;
+//        worldFrame.setLayout(new BoxLayout(worldFrame.getContentPane(), BoxLayout.Y_AXIS));
+//        worldFrame.add(panelGlowny);
+        panelRaportow = new JPanel();
+//        panelRaportow.setLayout(new BoxLayout(panelRaportow, BoxLayout.Y_AXIS));
 
         // tworze randomowe organizmy w randomowych polach
 
@@ -82,6 +95,7 @@ public class WirtualnySwiat {
 
     public void wykonajTure()
     {
+        panelRaportow.removeAll();
         tura++;
         int tabSize = kolejnoscOrganizmow.size() - 1;
         for (int i = 0; i < tabSize; i++) {
@@ -107,17 +121,56 @@ public class WirtualnySwiat {
             {
                 for (int j = 0; j < rozmiar; j++)
                 {
-                    if (organizmy[j][i] == null) System.out.print('0');//cout << '0';
+                    if (organizmy[j][i] == null) System.out.print('0');
                     else
                     {
                         System.out.print(organizmy[j][i].getZnak());
-//                        cout << organizmy[j][i]->getZnak();
                     }
                 }
                 System.out.println();
             }
             System.out.println();
         }
+
+        // GUI
+        panelGlowny.removeAll();
+        panelGlowny.setLayout(new BoxLayout(panelGlowny, BoxLayout.Y_AXIS));
+        worldFrame.add(panelGlowny);
+
+        JPanel panelSwiata = new JPanel();
+        panelSwiata.setLayout(new GridLayout(rozmiar, rozmiar, 5, 5));
+//        panelSwiata.setSize(new Dimension(100, 100));
+
+        for (int i = rozmiar - 1; i >= 0; i--)
+        {
+            for (int j = 0; j < rozmiar; j++)
+            {
+                JButton kwadrat = new JButton();
+//                kwadrat.setPreferredSize(new Dimension(10, 10));
+//                kwadrat.setSize(new Dimension(10, 10));
+                if (organizmy[j][i] == null) kwadrat.setBackground(Color.WHITE);
+                else
+                {
+                    kwadrat.setBackground(organizmy[j][i].getColor());
+//                    kwadrat.setForeground(organizmy[j][i].getColor());
+                }
+                panelSwiata.add(kwadrat);
+            }
+        }
+        panelGlowny.add(panelSwiata);
+//        worldFrame.add(panelGlowny);
+        //panelGlowny.setVisible(true);
+
+//        panelGlowny.setLayout(new BoxLayout(panelGlowny, BoxLayout.X_AXIS));
+        JPanel btnPanel = new JPanel();
+        btnPanel.removeAll();
+        wykonajTureBtn(btnPanel);
+        panelGlowny.add(btnPanel);
+
+
+        panelRaportow.setLayout(new BoxLayout(panelRaportow, BoxLayout.X_AXIS));
+        panelGlowny.add(panelRaportow);
+        worldFrame.setVisible(true);
 
     }
     public void usunOrganizm(int x, int y)
@@ -227,7 +280,22 @@ public class WirtualnySwiat {
     }
 
 
-//    public
+    public void wykonajTureBtn(JPanel myPanel)
+    {
+        // UTWORZ PRZYCISK NASTEPNEJ TURY
+        JButton nastepnaTuraBtn = new JButton("Nastepna tura");
+        nastepnaTuraBtn.setSize(150, 50);
+        nastepnaTuraBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                wykonajTure();
+                rysujSwiat();
+            }
+        });
+        // DODAJ DO FRAME
+        myPanel.add(nastepnaTuraBtn);
+    }
 }
 
 

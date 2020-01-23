@@ -51,7 +51,7 @@ abstract public class Zwierze extends Organizm
         if (przeciwnik.getNazwa().equals("Lew") && getSila() < 5) {}
         else if (przeciwnik.getNazwa().equals("Guarana"))
         {
-            przeciwnik.kolizja(nowyX, nowyY);
+            przeciwnik.kolizja(polozenieX, polozenieY);
         }
         else
         {
@@ -87,12 +87,6 @@ abstract public class Zwierze extends Organizm
             //ATAKUJACY WYGRYWA
             else if (sila >= przeciwnik.getSila())
             {
-//                System.out.print(getNazwa() + " [" + polozenieX + "]["
-//                        + polozenieY + "] wygrywa pojedynek z "
-//                        + przeciwnik.getNazwa()
-//                        + " [" + przeciwnik.getPolozenieX()
-//                        + "][" + przeciwnik.getPolozenieY()
-//                        +"]. Pole wygranego to: [" + nowyX + "][" + nowyY + "]\n");
                 aktualnySwiat.panelRaportow.add(new JLabel(getNazwa() + " [" + polozenieX + "]["
                         + polozenieY + "] wygrywa pojedynek z "
                         + przeciwnik.getNazwa()
@@ -108,16 +102,6 @@ abstract public class Zwierze extends Organizm
             // ATAKUJACY PRZEGRYWA
         else
             {
-//                System.out.print( getNazwa() + " [" + polozenieX + "]["
-//                        + polozenieY + "] przegrywa pojedynek z "
-//                        + przeciwnik.getNazwa()
-//                        + " [" + przeciwnik.getPolozenieX() + "]["
-//                        + przeciwnik.getPolozenieY() + "],  i zwalnia swoje pole. ");
-//
-//                aktualnySwiat.usunOrganizm(polozenieX, polozenieY);
-//
-//                System.out.print("Pole wygranego to: [" + przeciwnik.getPolozenieX() + "]["
-//                        + przeciwnik.getPolozenieY() + "]\n");
                 aktualnySwiat.panelRaportow.add(new JLabel(getNazwa() + " [" + polozenieX + "]["
                         + polozenieY + "] przegrywa pojedynek z "
                         + przeciwnik.getNazwa()
@@ -125,9 +109,6 @@ abstract public class Zwierze extends Organizm
                         + przeciwnik.getPolozenieY() + "],  i zwalnia swoje pole. " +
                         "Pole wygranego to: [" + przeciwnik.getPolozenieX() + "]["
                         + przeciwnik.getPolozenieY() + "]\n"));
-
-//                System.out.print("Pole wygranego to: [" + przeciwnik.getPolozenieX() + "]["
-//                        + przeciwnik.getPolozenieY() + "]\n");
 
                 aktualnySwiat.usunOrganizm(polozenieX, polozenieY);
             }

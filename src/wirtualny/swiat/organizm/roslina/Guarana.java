@@ -27,9 +27,9 @@ final public class Guarana extends Roslina
             + "][" + przeciwnik.getPolozenieY() + "] zjada Guarane ["
             + polozenieX + "][" + polozenieY + "], zajmuje jej pole i otrzymuje +3 do sily.\n"));
     przeciwnik.increaseSila(3);
-    aktualnySwiat.setOrganizm(przeciwnik.getPolozenieX(), przeciwnik.getPolozenieY(), nowyX, nowyY);
-    przeciwnik.setPolozenieX(nowyX);
-    przeciwnik.setPolozenieY(nowyY);
+    aktualnySwiat.setOrganizm(nowyX, nowyY, polozenieX, polozenieY);
+    przeciwnik.setPolozenieX(polozenieX);
+    przeciwnik.setPolozenieY(polozenieY);
 }
 
     @Override

@@ -27,7 +27,7 @@ public class WirtualnySwiat {
         this.rozmiar = rozmiar;
         organizmy = new Organizm[rozmiar][rozmiar];
         kontenerGlowny = new JPanel();
-        kontenerGlowny.setLayout(new BoxLayout(kontenerGlowny, BoxLayout.X_AXIS));
+//        kontenerGlowny.setLayout(new BorderLayout(kontenerGlowny, BorderLayout.
         worldFrame = myFrame;
 //        worldFrame.setLayout(new BoxLayout(worldFrame.getContentPane(), BoxLayout.Y_AXIS));
 //        worldFrame.add(panelGlowny);
@@ -139,10 +139,15 @@ public class WirtualnySwiat {
         // GUI
         kontenerGlowny.removeAll();
 //        kontenerGlowny.setLayout(new BoxLayout(kontenerGlowny, BoxLayout.Y_AXIS));
-        worldFrame.add(kontenerGlowny);
+        worldFrame.add(kontenerGlowny, BorderLayout.WEST);
 
-        JPanel lewyPanel = new JPanel();
-        lewyPanel.setLayout(new BoxLayout(lewyPanel, BoxLayout.Y_AXIS));
+        JPanel legenda = new JPanel();
+        legenda.setLayout(new GridLayout(2, 4, 10, 10));
+        rysujLegende(legenda);
+        worldFrame.add(legenda, BorderLayout.NORTH);
+
+//        JPanel lewyPanel = new JPanel();
+//        lewyPanel.setLayout(new BoxLayout(lewyPanel, BoxLayout.Y_AXIS));
 
         JPanel panelSwiata = new JPanel();
         panelSwiata.setLayout(new GridLayout(rozmiar, rozmiar, 5, 5));
@@ -156,11 +161,12 @@ public class WirtualnySwiat {
                 else
                 {
                     kwadrat.setBackground(organizmy[j][i].getColor());
+                    kwadrat.setPreferredSize(new Dimension(30, 30));
                 }
                 panelSwiata.add(kwadrat);
             }
         }
-        lewyPanel.add(panelSwiata);
+        kontenerGlowny.add(panelSwiata);
 //        worldFrame.add(panelGlowny);
         //panelGlowny.setVisible(true);
 
@@ -168,12 +174,12 @@ public class WirtualnySwiat {
         JPanel btnPanel = new JPanel();
         btnPanel.removeAll();
         wykonajTureBtn(btnPanel);
-        lewyPanel.add(btnPanel);
+        worldFrame.add(btnPanel, BorderLayout.SOUTH);
 
-        kontenerGlowny.add(lewyPanel);
+//        kontenerGlowny.add(lewyPanel);
 
         panelRaportow.setLayout(new BoxLayout(panelRaportow, BoxLayout.Y_AXIS));
-        kontenerGlowny.add(panelRaportow);
+        worldFrame.add(panelRaportow, BorderLayout.EAST);
         worldFrame.setVisible(true);
 
     }
@@ -299,6 +305,26 @@ public class WirtualnySwiat {
         });
         // DODAJ DO FRAME
         myPanel.add(nastepnaTuraBtn);
+    }
+
+    private void rysujLegende(JPanel myPanel)
+    {
+        Color[] listaKolorow = {Color.BLACK, Color.ORANGE, Color.CYAN,
+                Color.GRAY, Color.YELLOW, Color.GREEN, Color.RED, Color.PINK};
+
+        String[] listaOrganizmow = {"Owca", "Dzik", "Zmija",
+                "Wilk", "Lew", "Trawa", "Guarana", "Ciern"};
+
+        for (int i = 0; i < 8 ; i++)
+        {
+            JButton kwadrat = new JButton();
+            kwadrat.setBackground(listaKolorow[i]);
+            kwadrat.setPreferredSize(new Dimension(30, 30));
+            JLabel opis = new JLabel(listaOrganizmow[i]);
+
+            myPanel.add(kwadrat);
+            myPanel.add(opis);
+        }
     }
 }
 

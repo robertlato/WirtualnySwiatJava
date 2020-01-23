@@ -27,15 +27,9 @@ public class WirtualnySwiat {
         this.rozmiar = rozmiar;
         organizmy = new Organizm[rozmiar][rozmiar];
         kontenerGlowny = new JPanel();
-//        kontenerGlowny.setLayout(new BorderLayout(kontenerGlowny, BorderLayout.
         worldFrame = myFrame;
-//        worldFrame.setLayout(new BoxLayout(worldFrame.getContentPane(), BoxLayout.Y_AXIS));
-//        worldFrame.add(panelGlowny);
         panelRaportow = new JPanel();
         panelRaportow.add(new JLabel("Raporty z wirtualnego swiata"));
-//        panelRaportow.setLayout(new BoxLayout(panelRaportow, BoxLayout.Y_AXIS));
-
-        // tworze randomowe organizmy w randomowych polach
 
         int i = iloscOrganizmow;
         Random generator = new Random();
@@ -97,8 +91,8 @@ public class WirtualnySwiat {
     public void wykonajTure()
     {
         panelRaportow.removeAll();
-        panelRaportow.add(new JLabel("Raporty z wirtualnego swiata"));
         tura++;
+        panelRaportow.add(new JLabel("Raporty z wirtualnego swiata. Tura numer: " + tura));
         int tabSize = kolejnoscOrganizmow.size() - 1;
         for (int i = 0; i < tabSize; i++) {
             if (!kolejnoscOrganizmow.get(i).getDoUsuniecia()) kolejnoscOrganizmow.get(i).akcja();
@@ -138,17 +132,15 @@ public class WirtualnySwiat {
 
         // GUI
         kontenerGlowny.removeAll();
-//        kontenerGlowny.setLayout(new BoxLayout(kontenerGlowny, BoxLayout.Y_AXIS));
         worldFrame.add(kontenerGlowny, BorderLayout.WEST);
 
+        // DODAJ LEGENDE
         JPanel legenda = new JPanel();
         legenda.setLayout(new GridLayout(2, 4, 10, 10));
         rysujLegende(legenda);
         worldFrame.add(legenda, BorderLayout.NORTH);
 
-//        JPanel lewyPanel = new JPanel();
-//        lewyPanel.setLayout(new BoxLayout(lewyPanel, BoxLayout.Y_AXIS));
-
+        // DODAJ WIZUALIZACJE SWIATA
         JPanel panelSwiata = new JPanel();
         panelSwiata.setLayout(new GridLayout(rozmiar, rozmiar, 5, 5));
 
@@ -167,19 +159,17 @@ public class WirtualnySwiat {
             }
         }
         kontenerGlowny.add(panelSwiata);
-//        worldFrame.add(panelGlowny);
-        //panelGlowny.setVisible(true);
 
-//        panelGlowny.setLayout(new BoxLayout(panelGlowny, BoxLayout.X_AXIS));
+        // DODAJ BTN NASTEPNEJ TURY
         JPanel btnPanel = new JPanel();
         btnPanel.removeAll();
         wykonajTureBtn(btnPanel);
         worldFrame.add(btnPanel, BorderLayout.SOUTH);
 
-//        kontenerGlowny.add(lewyPanel);
-
+        // DODAJ RAPORTY
         panelRaportow.setLayout(new BoxLayout(panelRaportow, BoxLayout.Y_AXIS));
         worldFrame.add(panelRaportow, BorderLayout.EAST);
+
         worldFrame.setVisible(true);
 
     }
@@ -267,8 +257,8 @@ public class WirtualnySwiat {
         }
 
         kolejnoscOrganizmow.add(organizmy[x][y]);
-        System.out.print("Utworzono nowy organizm: " + organizmy[x][y].getNazwa() +
-                ". Jego pole to: [" + x + "][" + y + "].\n");
+        panelRaportow.add(new JLabel("Utworzono nowy organizm: " + organizmy[x][y].getNazwa() +
+                ". Jego pole to: [" + x + "][" + y + "].\n"));
     }
 
     // GETTERS
@@ -315,6 +305,7 @@ public class WirtualnySwiat {
         String[] listaOrganizmow = {"Owca", "Dzik", "Zmija",
                 "Wilk", "Lew", "Trawa", "Guarana", "Ciern"};
 
+        // DODAJ KOLOR ORAZ OPIS ORGANIZMU
         for (int i = 0; i < 8 ; i++)
         {
             JButton kwadrat = new JButton();
@@ -325,6 +316,11 @@ public class WirtualnySwiat {
             myPanel.add(kwadrat);
             myPanel.add(opis);
         }
+    }
+
+    public void zapisDoPliku()
+    {
+
     }
 }
 

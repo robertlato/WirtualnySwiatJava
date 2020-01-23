@@ -14,11 +14,11 @@ import java.util.List;
 public class WirtualnySwiat {
     // zmien na private!
     public Organizm[][] organizmy;
-    private List<Organizm> kolejnoscOrganizmow = new ArrayList<Organizm>();
-    private List<Organizm> organizmyDoUsuniecia = new ArrayList<Organizm>();
+    private List<Organizm> kolejnoscOrganizmow = new ArrayList<>();
+    private List<Organizm> organizmyDoUsuniecia = new ArrayList<>();
     private int rozmiar;
     private int tura;
-    private JPanel panelGlowny;
+    private JPanel kontenerGlowny;
     public JPanel panelRaportow;
     private MyFrame worldFrame;
 
@@ -26,12 +26,13 @@ public class WirtualnySwiat {
     {
         this.rozmiar = rozmiar;
         organizmy = new Organizm[rozmiar][rozmiar];
-        panelGlowny = new JPanel();
-//        panelGlowny.setLayout(new BoxLayout(panelGlowny, BoxLayout.Y_AXIS));
+        kontenerGlowny = new JPanel();
+        kontenerGlowny.setLayout(new BoxLayout(kontenerGlowny, BoxLayout.X_AXIS));
         worldFrame = myFrame;
 //        worldFrame.setLayout(new BoxLayout(worldFrame.getContentPane(), BoxLayout.Y_AXIS));
 //        worldFrame.add(panelGlowny);
         panelRaportow = new JPanel();
+        panelRaportow.add(new JLabel("Raporty z wirtualnego swiata"));
 //        panelRaportow.setLayout(new BoxLayout(panelRaportow, BoxLayout.Y_AXIS));
 
         // tworze randomowe organizmy w randomowych polach
@@ -96,6 +97,7 @@ public class WirtualnySwiat {
     public void wykonajTure()
     {
         panelRaportow.removeAll();
+        panelRaportow.add(new JLabel("Raporty z wirtualnego swiata"));
         tura++;
         int tabSize = kolejnoscOrganizmow.size() - 1;
         for (int i = 0; i < tabSize; i++) {
@@ -115,6 +117,7 @@ public class WirtualnySwiat {
 
     public void rysujSwiat()
     {
+
         {
             System.out.println();
             for (int i = rozmiar - 1; i >= 0; i--)
@@ -132,32 +135,32 @@ public class WirtualnySwiat {
             System.out.println();
         }
 
+
         // GUI
-        panelGlowny.removeAll();
-        panelGlowny.setLayout(new BoxLayout(panelGlowny, BoxLayout.Y_AXIS));
-        worldFrame.add(panelGlowny);
+        kontenerGlowny.removeAll();
+//        kontenerGlowny.setLayout(new BoxLayout(kontenerGlowny, BoxLayout.Y_AXIS));
+        worldFrame.add(kontenerGlowny);
+
+        JPanel lewyPanel = new JPanel();
+        lewyPanel.setLayout(new BoxLayout(lewyPanel, BoxLayout.Y_AXIS));
 
         JPanel panelSwiata = new JPanel();
         panelSwiata.setLayout(new GridLayout(rozmiar, rozmiar, 5, 5));
-//        panelSwiata.setSize(new Dimension(100, 100));
 
         for (int i = rozmiar - 1; i >= 0; i--)
         {
             for (int j = 0; j < rozmiar; j++)
             {
                 JButton kwadrat = new JButton();
-//                kwadrat.setPreferredSize(new Dimension(10, 10));
-//                kwadrat.setSize(new Dimension(10, 10));
                 if (organizmy[j][i] == null) kwadrat.setBackground(Color.WHITE);
                 else
                 {
                     kwadrat.setBackground(organizmy[j][i].getColor());
-//                    kwadrat.setForeground(organizmy[j][i].getColor());
                 }
                 panelSwiata.add(kwadrat);
             }
         }
-        panelGlowny.add(panelSwiata);
+        lewyPanel.add(panelSwiata);
 //        worldFrame.add(panelGlowny);
         //panelGlowny.setVisible(true);
 
@@ -165,11 +168,12 @@ public class WirtualnySwiat {
         JPanel btnPanel = new JPanel();
         btnPanel.removeAll();
         wykonajTureBtn(btnPanel);
-        panelGlowny.add(btnPanel);
+        lewyPanel.add(btnPanel);
 
+        kontenerGlowny.add(lewyPanel);
 
-        panelRaportow.setLayout(new BoxLayout(panelRaportow, BoxLayout.X_AXIS));
-        panelGlowny.add(panelRaportow);
+        panelRaportow.setLayout(new BoxLayout(panelRaportow, BoxLayout.Y_AXIS));
+        kontenerGlowny.add(panelRaportow);
         worldFrame.setVisible(true);
 
     }

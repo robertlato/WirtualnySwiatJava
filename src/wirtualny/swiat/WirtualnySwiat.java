@@ -158,7 +158,7 @@ public class WirtualnySwiat {
                 else
                 {
                     kwadrat.setBackground(organizmy[j][i].getColor());
-                    kwadrat.setPreferredSize(new Dimension(30, 30));
+                    kwadrat.setPreferredSize(new Dimension(25, 25));
                 }
                 panelSwiata.add(kwadrat);
             }

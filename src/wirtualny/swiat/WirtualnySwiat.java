@@ -8,6 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.List;
 
@@ -160,10 +164,11 @@ public class WirtualnySwiat {
         }
         kontenerGlowny.add(panelSwiata);
 
-        // DODAJ BTN NASTEPNEJ TURY
+        // DODAJ BTN NASTEPNEJ TURY I ZAPISU
         JPanel btnPanel = new JPanel();
         btnPanel.removeAll();
         wykonajTureBtn(btnPanel);
+        zapisDoPlikuBtn(btnPanel);
         worldFrame.add(btnPanel, BorderLayout.SOUTH);
 
         // DODAJ RAPORTY
@@ -293,7 +298,7 @@ public class WirtualnySwiat {
                 rysujSwiat();
             }
         });
-        // DODAJ DO FRAME
+        // DODAJ DO PANEL
         myPanel.add(nastepnaTuraBtn);
     }
 
@@ -318,9 +323,39 @@ public class WirtualnySwiat {
         }
     }
 
-    public void zapisDoPliku()
+    public void zapisDoPlikuBtn(JPanel myPanel)
     {
+        // UTWORZ PRZYCISK ZAPISU DO PLIKU
+        JButton zapisBtn = new JButton("Zapisz stan swiata");
+        zapisBtn.setSize(150, 50);
+        zapisBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                try
+                {
+                    zapisDoPliku();
+                }
+                catch (IOException ex)
+                {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        // DODAJ DO FRAME
+        myPanel.add(zapisBtn);
 
+    }
+// TODO: dopracuj zapis i odczyt
+    public void zapisDoPliku() throws FileNotFoundException {
+//        FileWriter fileWriter = new FileWriter("swiat.txt");
+        PrintWriter zapis = new PrintWriter("swiat.txt");
+        int iloscOrganizmow = kolejnoscOrganizmow.size();
+        for (Organizm aktualny : kolejnoscOrganizmow)
+        {
+            zapis.println(aktualny.getPolozenieX() + ", " + aktualny.getPolozenieY());
+        }
+        zapis.close();
     }
 }
 

@@ -39,16 +39,19 @@ public class WirtualnySwiat {
             int y = generator.nextInt(rozmiar);
             if (organizmy[x][y] == null) {
                 int wylosowanyOrganizm = generator.nextInt(8) + 1;
-                switch (wylosowanyOrganizm) {
+                // aby sprawdzic dzialanie rozmnazania zmien bound generatora na 1 (na przykladzie dzika)
+                switch (wylosowanyOrganizm)
+                {
                     case 1:
-                        organizmy[x][y] = new Ciern(x, y, this);
+                        organizmy[x][y] = new Dzik(x, y, this);
                         // dalszy kod
                         break;
 
                     case 2:
-                        organizmy[x][y] = new Dzik(x, y, this);
+                        organizmy[x][y] = new Ciern(x, y, this);
                         // dalszy kod
                         break;
+
 
                     case 3:
                         organizmy[x][y] = new Guarana(x, y, this);

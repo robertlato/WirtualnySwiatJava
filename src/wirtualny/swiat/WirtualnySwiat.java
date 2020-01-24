@@ -112,23 +112,24 @@ public class WirtualnySwiat {
 
     public void rysujSwiat()
     {
+        // WYSWIETLANIE W TERMINALU
 
-        {
-            System.out.println();
-            for (int i = rozmiar - 1; i >= 0; i--)
-            {
-                for (int j = 0; j < rozmiar; j++)
-                {
-                    if (organizmy[j][i] == null) System.out.print('0');
-                    else
-                    {
-                        System.out.print(organizmy[j][i].getZnak());
-                    }
-                }
-                System.out.println();
-            }
-            System.out.println();
-        }
+//        {
+//            System.out.println();
+//            for (int i = rozmiar - 1; i >= 0; i--)
+//            {
+//                for (int j = 0; j < rozmiar; j++)
+//                {
+//                    if (organizmy[j][i] == null) System.out.print('0');
+//                    else
+//                    {
+//                        System.out.print(organizmy[j][i].getZnak());
+//                    }
+//                }
+//                System.out.println();
+//            }
+//            System.out.println();
+//        }
 
 
         // GUI
@@ -375,12 +376,9 @@ public class WirtualnySwiat {
 
     }
 
-// TODO: dopracuj zapis i odczyt
     public void zapisDoPliku() throws FileNotFoundException
     {
-//        FileWriter fileWriter = new FileWriter("swiat.txt");
         PrintWriter zapis = new PrintWriter("swiat.txt");
-//        int iloscOrganizmow = kolejnoscOrganizmow.size();
         zapis.println(tura + " " + kolejnoscOrganizmow.size());
         for (Organizm aktualny : kolejnoscOrganizmow)
         {
@@ -423,8 +421,6 @@ public class WirtualnySwiat {
             organizmy[x][y].setSila(odczyt.nextInt());
             organizmy[x][y].setWiek(odczyt.nextInt());
         }
-
-
     }
 }
 

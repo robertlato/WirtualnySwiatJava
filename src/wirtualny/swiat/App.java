@@ -1,3 +1,14 @@
+/**
+ *  Symulator wirtualnego swiata, LAB OTWARTE JPO
+ *  Zwierzeta: wilk, owca, lew, zmija, dzik
+ *  Rosliny: trawa, guarana, ciern
+ *
+ *
+ * @author  Robert Latoszewski
+ * @version 1.0
+ * @since   2020-01-24
+ */
+
 package wirtualny.swiat;
 
 import javax.swing.*;

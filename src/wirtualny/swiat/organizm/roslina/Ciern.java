@@ -10,6 +10,7 @@ final public class Ciern extends Roslina
     public Ciern(int x, int y, WirtualnySwiat swiat)
     {
         znak = 'C';
+        id = 8;
         kolor = Color.PINK;
         sila = 2;
         inicjatywa = 0;

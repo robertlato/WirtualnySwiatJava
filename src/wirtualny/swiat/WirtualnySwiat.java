@@ -8,10 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
 import java.util.List;
 
@@ -164,11 +161,12 @@ public class WirtualnySwiat {
         }
         kontenerGlowny.add(panelSwiata);
 
-        // DODAJ BTN NASTEPNEJ TURY I ZAPISU
+        // DODAJ BTN NASTEPNEJ TURY, ZAPISU I ODCZYTU
         JPanel btnPanel = new JPanel();
         btnPanel.removeAll();
         wykonajTureBtn(btnPanel);
         zapisDoPlikuBtn(btnPanel);
+        odczytZPlikuBtn(btnPanel);
         worldFrame.add(btnPanel, BorderLayout.SOUTH);
 
         // DODAJ RAPORTY
@@ -213,47 +211,47 @@ public class WirtualnySwiat {
                 y >= rozmiar || y < 0);
     }
 
-    public void createOrganizm(int x, int y, char znak)
+    public void createOrganizm(int x, int y, int id)
     {
-        switch (znak)
+        switch (id)
         {
-            case 'C':
-                organizmy[x][y] = new Ciern(x, y, this);
+            case 1:
+                organizmy[x][y] = new Zmija(x, y, this);
                 // dalszy kod
                 break;
 
-            case 'D':
-                organizmy[x][y] = new Dzik(x, y, this);
-                // dalszy kod
-                break;
-
-            case 'G':
-                organizmy[x][y] = new Guarana(x, y, this);
-                // dalszy kod
-                break;
-
-            case 'L':
-                organizmy[x][y] = new Lew(x, y, this);
-                // dalszy kod
-                break;
-
-            case 'O':
-                organizmy[x][y] = new Owca(x, y, this);
-                // dalszy kod
-                break;
-
-            case 'T':
-                organizmy[x][y] = new Trawa(x, y, this);
-                // dalszy kod
-                break;
-
-            case 'W':
+            case 2:
                 organizmy[x][y] = new Wilk(x, y, this);
                 // dalszy kod
                 break;
 
-            case 'Z':
-                organizmy[x][y] = new Zmija(x, y, this);
+            case 3:
+                organizmy[x][y] = new Owca(x, y, this);
+                // dalszy kod
+                break;
+
+            case 4:
+                organizmy[x][y] = new Lew(x, y, this);
+                // dalszy kod
+                break;
+
+            case 5:
+                organizmy[x][y] = new Dzik(x, y, this);
+                // dalszy kod
+                break;
+
+            case 6:
+                organizmy[x][y] = new Trawa(x, y, this);
+                // dalszy kod
+                break;
+
+            case 7:
+                organizmy[x][y] = new Guarana(x, y, this);
+                // dalszy kod
+                break;
+
+            case 8:
+                organizmy[x][y] = new Ciern(x, y, this);
                 // dalszy kod
                 break;
 
@@ -344,18 +342,89 @@ public class WirtualnySwiat {
         });
         // DODAJ DO FRAME
         myPanel.add(zapisBtn);
+    }
+
+    public void odczytZPlikuBtn(JPanel myPanel)
+    {
+        // UTWORZ PRZYCISK ODCZYTU Z PLIKU
+        JButton odczytBtn = new JButton("Wczytaj stan swiata");
+        odczytBtn.setSize(150, 50);
+        odczytBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                try
+                {
+                    odczytZPliku();
+                    panelRaportow.removeAll();
+                    panelRaportow.add(new JLabel("Wczytano stan swiata. " +
+                            "\nRaporty z wirtualnego swiata. Tura numer: " + tura));
+                    rysujSwiat();
+                }
+                catch (IOException ex) // FileNotFoundException extends IOException
+                {
+                    ex.printStackTrace();
+                    panelRaportow.removeAll();
+                    panelRaportow.add(new JLabel("Blad wczytania - brak pliku!"));
+                    rysujSwiat();
+                }
+            }
+        });
+        // DODAJ DO FRAME
+        myPanel.add(odczytBtn);
 
     }
+
 // TODO: dopracuj zapis i odczyt
-    public void zapisDoPliku() throws FileNotFoundException {
+    public void zapisDoPliku() throws FileNotFoundException
+    {
 //        FileWriter fileWriter = new FileWriter("swiat.txt");
         PrintWriter zapis = new PrintWriter("swiat.txt");
-        int iloscOrganizmow = kolejnoscOrganizmow.size();
+//        int iloscOrganizmow = kolejnoscOrganizmow.size();
+        zapis.println(tura + " " + kolejnoscOrganizmow.size());
         for (Organizm aktualny : kolejnoscOrganizmow)
         {
-            zapis.println(aktualny.getPolozenieX() + ", " + aktualny.getPolozenieY());
+            zapis.println(aktualny.getId() + " " + aktualny.getPolozenieX() + " " + aktualny.getPolozenieY()
+                    + " " + aktualny.getSila() + " " + aktualny.getWiek());
         }
         zapis.close();
+    }
+
+    public void odczytZPliku() throws FileNotFoundException
+    {
+        Scanner odczyt = new Scanner(new File("swiat.txt"));
+        int aktualnaTura = odczyt.nextInt();
+        int iloscOrganizmow = odczyt.nextInt();
+
+        tura = aktualnaTura;
+
+        // WYCZYSC AKTUALNE DANE
+
+        organizmyDoUsuniecia.clear();
+        kolejnoscOrganizmow.clear();
+
+        for (int i = 0; i < rozmiar; i++)
+            for (int j = 0; j < rozmiar; j++)
+            {
+                organizmy[i][j] = null;
+            }
+
+        // REKONSTRUKCJA kolejnoscOrganizmow
+
+        int x, y, id;
+
+        for (int i = 0; i < iloscOrganizmow; i++)
+        {
+            id = odczyt.nextInt();
+            x = odczyt.nextInt();
+            y = odczyt.nextInt();
+
+            createOrganizm(x, y, id);
+            organizmy[x][y].setSila(odczyt.nextInt());
+            organizmy[x][y].setWiek(odczyt.nextInt());
+        }
+
+
     }
 }
 

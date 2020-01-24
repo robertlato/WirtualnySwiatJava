@@ -23,7 +23,7 @@ abstract public class Roslina extends Organizm
                     // jezeli pole jest wolne i jest w granicy swiata to stworz nowy organizm
                     if (!aktualnySwiat.zajetoscPola(polozenieX + i,polozenieY + j))
                     {
-                        aktualnySwiat.createOrganizm(polozenieX + i,polozenieY + j, getZnak());
+                        aktualnySwiat.createOrganizm(polozenieX + i,polozenieY + j, getId());
                         gotowe = true;
                         break;
                     }

@@ -9,6 +9,7 @@ final public class Wilk extends Zwierze
     public Wilk(int x, int y, WirtualnySwiat swiat)
     {
         znak = 'W';
+        id = 2;
         kolor = Color.GRAY;
         sila = 9;
         inicjatywa = 5;

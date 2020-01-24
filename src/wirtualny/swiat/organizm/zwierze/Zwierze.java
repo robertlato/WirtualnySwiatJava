@@ -67,7 +67,7 @@ abstract public class Zwierze extends Organizm
                     {
                         if (!aktualnySwiat.zajetoscPola(polozenieX + i, polozenieY + j))
                         {
-                            aktualnySwiat.createOrganizm(polozenieX + i, polozenieY + j, getZnak());
+                            aktualnySwiat.createOrganizm(polozenieX + i, polozenieY + j, getId());
                             gotowe = true;
                             break;
                         }
@@ -75,7 +75,7 @@ abstract public class Zwierze extends Organizm
                             przeciwnik.getPolozenieY() + j))
                         {
                             aktualnySwiat.createOrganizm(przeciwnik.getPolozenieX() + i,
-                                przeciwnik.getPolozenieY() + j, getZnak());
+                                przeciwnik.getPolozenieY() + j, getId());
                             gotowe = true;
                             break;
                         }

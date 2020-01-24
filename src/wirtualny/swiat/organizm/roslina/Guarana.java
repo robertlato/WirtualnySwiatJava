@@ -11,6 +11,7 @@ final public class Guarana extends Roslina
     public Guarana(int x, int y, WirtualnySwiat swiat)
     {
         znak = 'G';
+        id = 7;
         kolor = Color.RED;
         sila = 0;
         inicjatywa = 0;

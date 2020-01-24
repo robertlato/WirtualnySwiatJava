@@ -11,6 +11,7 @@ final public class Zmija extends Zwierze
     public Zmija(int x, int y, WirtualnySwiat swiat)
     {
         znak = 'Z';
+        id = 1;
         kolor = Color.CYAN;
         sila = 2;
         inicjatywa = 3;

@@ -29,6 +29,7 @@ abstract public class Organizm implements Comparable<Organizm>
     public int getPolozenieX(){return polozenieX;}
     public int getPolozenieY(){return polozenieY;}
     public boolean getDoUsuniecia(){return doUsuniecia;}
+    public int getId(){return id;}
 
     // SETTERS
     public void increaseSila(int x){sila += x;}
@@ -36,9 +37,12 @@ abstract public class Organizm implements Comparable<Organizm>
     public void setPolozenieX(int x) {polozenieX = x;}
     public void setPolozenieY(int y) {polozenieY = y;}
     public void setDoUsuniecia(){doUsuniecia = true;}
+    public void setSila(int nowaSila){sila = nowaSila;}
+    public void setWiek(int nowyWiek){wiek = nowyWiek;}
 
     // VARIABLES
     protected char znak;
+    protected int id;
     protected Color kolor;
     protected int wiek = 0;
     protected int sila = 0;

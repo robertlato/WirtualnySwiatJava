@@ -9,6 +9,7 @@ final public class Lew extends Zwierze
     public Lew(int x, int y, WirtualnySwiat swiat)
     {
         znak = 'L';
+        id = 4;
         kolor = Color.YELLOW;
         sila = 11;
         inicjatywa = 7;

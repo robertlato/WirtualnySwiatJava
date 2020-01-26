@@ -14,13 +14,14 @@ import java.util.List;
 
 public class WirtualnySwiat {
     // zmien na private!
-    public Organizm[][] organizmy;
+    private Organizm[][] organizmy;
     private List<Organizm> kolejnoscOrganizmow = new ArrayList<>();
     private List<Organizm> organizmyDoUsuniecia = new ArrayList<>();
     private int rozmiar;
     private int tura;
     private JPanel kontenerGlowny;
     public JPanel panelRaportow;
+    public JScrollPane panelPrzewijania;
     private MyFrame worldFrame;
 
     public WirtualnySwiat(int rozmiar, int iloscOrganizmow, MyFrame myFrame)
@@ -30,7 +31,12 @@ public class WirtualnySwiat {
         kontenerGlowny = new JPanel();
         worldFrame = myFrame;
         panelRaportow = new JPanel();
+        panelRaportow.setLayout(new BoxLayout(panelRaportow, BoxLayout.Y_AXIS));
         panelRaportow.add(new JLabel("Raporty z wirtualnego swiata"));
+        panelPrzewijania = new JScrollPane(panelRaportow);
+        panelPrzewijania.setPreferredSize(new Dimension(500, 300));
+        kontenerGlowny.setPreferredSize(new Dimension(800, 300));
+
 
         int i = iloscOrganizmow;
         Random generator = new Random();
@@ -95,6 +101,7 @@ public class WirtualnySwiat {
     public void wykonajTure()
     {
         panelRaportow.removeAll();
+        panelPrzewijania.updateUI();
         tura++;
         panelRaportow.add(new JLabel("Raporty z wirtualnego swiata. Tura numer: " + tura));
         int tabSize = kolejnoscOrganizmow.size() - 1;
@@ -174,8 +181,7 @@ public class WirtualnySwiat {
         worldFrame.add(btnPanel, BorderLayout.SOUTH);
 
         // DODAJ RAPORTY
-        panelRaportow.setLayout(new BoxLayout(panelRaportow, BoxLayout.Y_AXIS));
-        worldFrame.add(panelRaportow, BorderLayout.EAST);
+        worldFrame.add(panelPrzewijania, BorderLayout.EAST);
 
         worldFrame.setVisible(true);
 

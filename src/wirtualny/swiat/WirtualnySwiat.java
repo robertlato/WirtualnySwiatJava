@@ -20,6 +20,8 @@ public class WirtualnySwiat {
     private int rozmiar;
     private int tura;
     private JPanel kontenerGlowny;
+    private JPanel btnPanel;
+
     public JPanel panelRaportow;
     public JScrollPane panelPrzewijania;
     private MyFrame worldFrame;
@@ -36,6 +38,8 @@ public class WirtualnySwiat {
         panelPrzewijania = new JScrollPane(panelRaportow);
         panelPrzewijania.setPreferredSize(new Dimension(500, 300));
         kontenerGlowny.setPreferredSize(new Dimension(800, 300));
+        btnPanel = new JPanel();
+
 
 
         int i = iloscOrganizmow;
@@ -101,7 +105,7 @@ public class WirtualnySwiat {
     public void wykonajTure()
     {
         panelRaportow.removeAll();
-        panelPrzewijania.updateUI();
+
         tura++;
         panelRaportow.add(new JLabel("Raporty z wirtualnego swiata. Tura numer: " + tura));
         int tabSize = kolejnoscOrganizmow.size() - 1;
@@ -122,6 +126,10 @@ public class WirtualnySwiat {
 
     public void rysujSwiat()
     {
+        panelPrzewijania.updateUI();
+        kontenerGlowny.updateUI();
+        btnPanel.updateUI();
+
         // WYSWIETLANIE W TERMINALU
 
 //        {
@@ -173,7 +181,7 @@ public class WirtualnySwiat {
         kontenerGlowny.add(panelSwiata);
 
         // DODAJ BTN NASTEPNEJ TURY, ZAPISU I ODCZYTU
-        JPanel btnPanel = new JPanel();
+//        JPanel btnPanel = new JPanel();
         btnPanel.removeAll();
         wykonajTureBtn(btnPanel);
         zapisDoPlikuBtn(btnPanel);

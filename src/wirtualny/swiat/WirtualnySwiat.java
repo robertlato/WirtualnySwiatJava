@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.List;
 
 public class WirtualnySwiat {
-    // zmien na private!
+
     private Organizm[][] organizmy;
     private List<Organizm> kolejnoscOrganizmow = new ArrayList<>();
     private List<Organizm> organizmyDoUsuniecia = new ArrayList<>();
@@ -23,7 +23,7 @@ public class WirtualnySwiat {
     private JPanel btnPanel;
 
     public JPanel panelRaportow;
-    public JScrollPane panelPrzewijania;
+    private JScrollPane panelPrzewijania;
     private MyFrame worldFrame;
 
     public WirtualnySwiat(int rozmiar, int iloscOrganizmow, MyFrame myFrame)
